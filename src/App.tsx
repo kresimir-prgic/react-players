@@ -1,16 +1,21 @@
-import React, { CSSProperties } from "react";
-
-const containerStyles: CSSProperties = {
-	margin: "1rem",
-	textAlign: "center",
-	fontSize: "24px",
-};
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import PlayerDetails from "./components/PlayerDetails";
+import Players from "./components/Players";
+import Layout from "./ui/Layout";
 
 const App: React.FC<{}> = () => {
 	return (
-		<div style={containerStyles}>
-			<h1>React Players</h1>
-		</div>
+		<BrowserRouter>
+			<Header />
+			<Layout>
+				<Routes>
+					<Route path="/" element={<Players />} />
+					<Route path="/player" element={<PlayerDetails />} />
+				</Routes>
+			</Layout>
+		</BrowserRouter>
 	);
 };
 

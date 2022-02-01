@@ -8,7 +8,10 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
-  devServer: { static: path.join(__dirname, "src") },
+  devServer: {
+    static: path.join(__dirname, "src"),
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       {
@@ -16,6 +19,10 @@ module.exports = {
         exclude: /node_modules/,
         use: ["babel-loader"],
       },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      }
     ],
   },
   plugins: [
@@ -23,4 +30,5 @@ module.exports = {
       template: path.join(__dirname, "src", "index.html"),
     }),
   ],
+  devtool: "source-map"
 };
