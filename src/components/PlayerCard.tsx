@@ -6,7 +6,8 @@ const cardWrapper: CSSProperties = {
   borderRadius: "8px 8px 0 0",
   overflow: "hidden",
   background: "#788B91",
-  color: "#FFF"
+  color: "#FFF",
+  cursor: "pointer"
 };
 const cardPhoto: CSSProperties = {
   width: "100%",
@@ -34,7 +35,9 @@ const PlayerCard: React.FC<{
 	position: string;
 	photoId: string;
   flagId: string;
-}> = ({ name, position, photoId, flagId }) => {
+  id: number;
+  onCardClick: (id: number) => void;
+}> = ({ name, position, photoId, flagId, id, onCardClick }) => {
 	const [photo, setPhoto] = useState();
 	const [flag, setFlag] = useState();
 
@@ -59,7 +62,7 @@ const PlayerCard: React.FC<{
 	}, []);
 
 	return (
-		<div style={cardWrapper}>
+		<div style={cardWrapper} onClick={() => onCardClick(id)}>
 			<img style={cardPhoto} src={photo} alt="" />
 			<div style={cardFooter}>
 				<img style={countryFlag} src={flag} alt="" />

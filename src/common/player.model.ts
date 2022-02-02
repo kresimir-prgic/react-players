@@ -1,5 +1,6 @@
 export interface Player {
   fields: Fields;
+  sys: Sys;
 }
 
 interface Fields {

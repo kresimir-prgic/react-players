@@ -12,7 +12,7 @@ const App: React.FC<{}> = () => {
 			<Layout>
 				<Routes>
 					<Route path="/" element={<Players />} />
-					<Route path="/player" element={<PlayerDetails />} />
+					<Route path="/player/:id" element={<PlayerDetails />} />
 				</Routes>
 			</Layout>
 		</BrowserRouter>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { CSSProperties, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API_CONFIG from "../common/api.config";
 import { Player } from "../common/player.model";
 import PlayerCard from "./PlayerCard";
@@ -32,7 +33,8 @@ const button: CSSProperties = {
 const Players: React.FC<{}> = () => {
 	let [limit, setLimit] = useState<number>(10);
 	const [players, setPlayers] = useState<Array<Player>>();
-  const [total, setTotal] = useState<number>(0);
+	const [total, setTotal] = useState<number>(0);
+  const navigate = useNavigate();
 
 	useEffect(() => {
 		axios
@@ -42,7 +44,7 @@ const Players: React.FC<{}> = () => {
 			.then((response) => {
 				console.log(response);
 				setPlayers(response.data.items);
-        setTotal(response.data.total);
+				setTotal(response.data.total);
 			});
 	}, []);
 
@@ -57,6 +59,15 @@ const Players: React.FC<{}> = () => {
 			});
 	};
 
+	const onClick = (player: Player) => {
+		if (player.fields.nickname === "Dendi") {
+			console.log("It's me! Dendi!");
+			navigate(`/player/${player.sys.id}`, { state: { id: player.sys.id, photoId: player.fields.photo.sys.id } });
+		} else {
+			throw "Sorry! We're looking for Dendi.";
+		}
+	};
+
 	return (
 		<div style={pageWrapper}>
 			{players ? (
@@ -64,23 +75,25 @@ const Players: React.FC<{}> = () => {
 					{players.map((player) => (
 						<PlayerCard
 							key={player.fields.id}
+							id={player.fields.id}
 							name={player.fields.name}
 							position={player.fields.position}
 							photoId={player.fields.photo.sys.id}
 							flagId={player.fields.countryFlag.sys.id}
+							onCardClick={() => onClick(player)}
 						/>
 					))}
 				</ul>
 			) : (
 				"Loading..."
 			)}
-			{ limit <= total &&
+			{limit <= total && (
 				<div style={buttonWrapper}>
 					<button style={button} onClick={loadMore}>
 						Load more
 					</button>
 				</div>
-			}
+			)}
 		</div>
 	);
 };
