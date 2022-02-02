@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 const header: CSSProperties = {
 	fontSize: "24px",
   backgroundColor: "#788B91",
-  padding: "10px 15px"
+  padding: "10px 15px",
+  borderRadius: "8px 8px 0 0"
 };
 const link: CSSProperties = {
   textDecoration: "none",
