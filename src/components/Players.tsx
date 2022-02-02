@@ -34,7 +34,7 @@ const Players: React.FC<{}> = () => {
 	let [limit, setLimit] = useState<number>(10);
 	const [players, setPlayers] = useState<Array<Player>>();
 	const [total, setTotal] = useState<number>(0);
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		axios
@@ -62,8 +62,11 @@ const Players: React.FC<{}> = () => {
 	const onClick = (player: Player) => {
 		if (player.fields.nickname === "Dendi") {
 			console.log("It's me! Dendi!");
-			navigate(`/player/${player.sys.id}`, { state: { id: player.sys.id, photoId: player.fields.photo.sys.id } });
+			navigate(`/player/${player.sys.id}`, {
+				state: { id: player.sys.id, photoId: player.fields.photo.sys.id },
+			});
 		} else {
+			alert("Sorry! Only Dendi has profile page. Find him!");
 			throw "Sorry! We're looking for Dendi.";
 		}
 	};
